@@ -1,28 +1,27 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var configRouter = (function () {
-    function configRouter() {
-    }
-    ;
-    configRouter.prototype.configure = function ($routeProvider, $locationProvider) {
-        $routeProvider.when("/Register", {
-            templateUrl: "PartialViews/Register.html",
-            controller: "RegisterController"
-        }).when("/Buddies", {
-            templateUrl: "PartialViews/Buddies.html",
-            controller: "BuddiesController"
-        }).when("/Share", {
-            templateUrl: "PartialViews/Share.html",
-            controller: "ShareController"
-        }).otherwise({
-            redirectTo: "/"
-        });
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-    };
-    return configRouter;
-}());
-exports.configRouter = configRouter;
+define(["require", "exports"], function (require, exports) {
+    "use strict";
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var ConfigRouter = (function () {
+        function ConfigRouter() {
+        }
+        ;
+        ConfigRouter.prototype.configure = function ($routeProvider, $locationProvider) {
+            $routeProvider.when("/Register", {
+                templateUrl: "PartialViews/Register.html",
+                controller: "RegisterController"
+            }).when("/Books", {
+                templateUrl: "PartialViews/Books.html",
+                controller: "BookController"
+            }).otherwise({
+                redirectTo: "/"
+            });
+            $locationProvider.html5Mode({
+                enabled: true,
+                requireBase: false
+            });
+        };
+        return ConfigRouter;
+    }());
+    exports.ConfigRouter = ConfigRouter;
+});
 //# sourceMappingURL=configRouter.js.map

@@ -2,7 +2,7 @@
 import ng = angular;
 import serviceModule = require("./serviceHandler");
 
-export class loginController {
+export class LoginController {
     location: ng.ILocationService;
     loggedIn: boolean;
     message: string;
@@ -20,24 +20,34 @@ export class loginController {
         this.user = {};
     }
 
-    public login(): void {
-        var self = this;
-        this.serviceFactory.validateUser(this.user.userName).then(function (response) {
+    login(): void {
+        const self = this;
+        this.serviceFactory.validateUser(this.user.userName, this.user.userPassword).then(response => {
             if (response.status === 200) {
-                self.loggedIn = true;
-                self.message = "";
-                self.loggedInUser = response.data;
+                this.loggedIn = true;
+                this.message = "";
+                this.loggedInUser = response.data;
             }
-        }).catch(function (response) {
-            self.loggedIn = false;
-            self.message = response.data.Message + ";" + response.data.ExceptionMessage;
+        }).catch(response => {
+            this.loggedIn = false;
+            this.message = response.data.Message;
+            if (response.data.ExceptionMessage)
+                this.message += response.data.ExceptionMessage;
         });
         self.user = {};
     };
 
-    public validate(): void {
+    logout(): void {
+        const self = this;
+        this.loggedIn = false;
+        this.message = "Вы вышли из системы";
+        this.location.path("/");
+        self.user = {};
+    };
+
+    validate(): void {
         if (!this.loggedIn) {
-            this.message = "Login before adding buddies or share."
+            this.message = "Чтобы добавить книгу, необходимо зарегистрироваться";
             this.location.path("/");
         }
     };

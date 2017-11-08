@@ -14,26 +14,27 @@ namespace ShareIT.Controllers
 {
     public class StudentsController : ApiController
     {
-        private ShareResourcesEntities db = new ShareResourcesEntities();
+        private readonly ShareResourcesEntities _db = new ShareResourcesEntities();
 
         // GET: api/Students
         public IQueryable<Student> GetStudents()
         {
-            return db.Students;
+            return _db.Students;
         }
 
         // GET: api/Students/5
-        public IHttpActionResult GetStudent(string userName)
+        public IHttpActionResult GetStudent(string userName, string userPassword)
         {
-            Student student = db.Students
+            var student = _db.Students
                 .FirstOrDefault(s => s.UserName == userName);
 
             if (student == null)
-            {
-                return NotFound();
-            }
+                return BadRequest("Пользователь с именем "+ userName +" не найден"); 
 
-            Utils.CensorStudent(student);
+
+            if (student.Password != userPassword)
+                return BadRequest("Неверный пароль");
+
             return Ok(student);
         }
 
@@ -51,11 +52,11 @@ namespace ShareIT.Controllers
                 return BadRequest();
             }
 
-            db.Entry(student).State = EntityState.Modified;
+            _db.Entry(student).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -81,8 +82,8 @@ namespace ShareIT.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Students.Add(student);
-            db.SaveChanges();
+            _db.Students.Add(student);
+            _db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = student.Id }, student);
         }
@@ -91,14 +92,14 @@ namespace ShareIT.Controllers
         [ResponseType(typeof(Student))]
         public IHttpActionResult DeleteStudent(int id)
         {
-            Student student = db.Students.Find(id);
+            Student student = _db.Students.Find(id);
             if (student == null)
             {
                 return NotFound();
             }
 
-            db.Students.Remove(student);
-            db.SaveChanges();
+            _db.Students.Remove(student);
+            _db.SaveChanges();
 
             return Ok(student);
         }
@@ -107,25 +108,14 @@ namespace ShareIT.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool StudentExists(int id)
         {
-            return db.Students.Count(e => e.Id == id) > 0;
-        }
-    }
-
-    public static class Utils
-    {
-        public static void CensorStudent(Student student)
-        {
-            if (student != null)
-            {
-                student.Password = "***********";
-            }
+            return _db.Students.Count(e => e.Id == id) > 0;
         }
     }
 }

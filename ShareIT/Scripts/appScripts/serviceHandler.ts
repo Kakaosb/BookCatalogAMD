@@ -2,7 +2,7 @@
 import ng = angular;
 interface IServiceHandler {
     assign(service: exportService): void;
-    validateUser<T>(userName: string): ng.IHttpPromise<T>;
+    validateUser<T>(userName: string, userPassword: string): ng.IHttpPromise<T>;
     registerUser<T>(user: T): ng.IHttpPromise<T>;
 }
 
@@ -23,17 +23,17 @@ export class serviceHandler implements IServiceHandler {
         this.service = service;
     }
 
-    public validateUser<T>(userName: string): ng.IHttpPromise<T> {
+    public validateUser<T>(userName: string, userPassword: string): ng.IHttpPromise<T> {
         return this.service.$http({
-            method: 'GET',
-            url: '/api/Students?userName=' + userName
+            method: "GET",
+            url: `/api/Students?userName=${userName}&userPassword=${userPassword}`
         });
     };
 
     public registerUser<T>(user: T): ng.IHttpPromise<T> {
         return this.service.$http({
-            method: 'POST',
-            url: '/api/Students',
+            method: "POST",
+            url: "/api/Students",
             data: user
         });
     };

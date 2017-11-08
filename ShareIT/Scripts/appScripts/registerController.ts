@@ -3,7 +3,7 @@ import ng = angular;
 import serviceModule = require("./serviceHandler");
 import loginCtrlModule = require("./loginController");
 
-export class registerController {
+export class RegisterController {
     location: ng.ILocationService;
     user: any;
     serviceFactory: serviceModule.serviceHandler;
@@ -17,15 +17,15 @@ export class registerController {
         this.user = {};
     }
 
-    public register(): void {
-        var self = this;
-        this.serviceFactory.registerUser(this.user).then(function (response) {
+    register(): void {
+        const self = this;
+        this.serviceFactory.registerUser(this.user).then(response => {
             if (response.status === 201) {
-                self.parent.ctrl.message = "";
-                self.location.path("/");
+                this.parent.ctrl.message = "";
+                this.location.path("/");
             }
-        }).catch(function (response) {
-            self.parent.ctrl.message = response.data.Message + ";" + response.data.ExceptionMessage;
+        }).catch(response => {
+            this.parent.ctrl.message = response.data.Message + ";" + response.data.ExceptionMessage;
         });
         self.user = {};
     };

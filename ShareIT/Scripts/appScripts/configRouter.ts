@@ -1,7 +1,7 @@
 ﻿"use strict";
 import ng = angular;
 import ngr = angular.route;
-export class configRouter {
+export class ConfigRouter {
     constructor() {
     };
 
@@ -10,15 +10,12 @@ export class configRouter {
             {
                 templateUrl: "PartialViews/Register.html",
                 controller: "RegisterController"
-            }).when("/Buddies", {
-            templateUrl: "PartialViews/Buddies.html",
-            controller: "BuddiesController"
-        }).when("/Share", {
-            templateUrl: "PartialViews/Share.html",
-            controller: "ShareController"
-        }).otherwise({
-            redirectTo: "/"
-        });
+            }).when("/Books", {
+                templateUrl: "PartialViews/Books.html",
+                controller: "BookController"
+            }).otherwise({
+                redirectTo: "/"
+            });
 
         $locationProvider.html5Mode({
             enabled: true,
