@@ -25,7 +25,9 @@ namespace ShareIT.Controllers
         // GET: api/Students/5
         public IHttpActionResult GetStudent(string userName)
         {
-            Student student = db.Students.Where(s => s.UserName == userName).First();
+            Student student = db.Students
+                .FirstOrDefault(s => s.UserName == userName);
+
             if (student == null)
             {
                 return NotFound();

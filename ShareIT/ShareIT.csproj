@@ -125,10 +125,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ShareResources.mdf" />
-    <Content Include="App_Data\ShareResources_log.ldf">
-      <DependentUpon>ShareResources.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -178,6 +174,7 @@
     <Content Include="Models\ShareITModel.edmx.diagram">
       <DependentUpon>ShareITModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -247,7 +244,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\appScripts\configRouter.ts" />
     <TypeScriptCompile Include="Scripts\appScripts\loginController.ts" />

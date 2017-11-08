@@ -16,15 +16,10 @@ namespace ShareIT.Models
     public partial class ShareResourcesEntities : DbContext
     {
         public ShareResourcesEntities()
-            : base("name=ShareResourcesEntities")
+            : base("ShareResourcesEntities")
         {
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
+
         public virtual DbSet<Buddy> Buddies { get; set; }
         public virtual DbSet<Resource> Resources { get; set; }
         public virtual DbSet<Student> Students { get; set; }

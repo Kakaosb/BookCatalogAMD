@@ -1,7 +1,7 @@
 ﻿"use strict";
 import ng = angular;
-import serviceModule = require("serviceHandler");
-import loginCtrlModule = require("loginController");
+import serviceModule = require("./serviceHandler");
+import loginCtrlModule = require("./loginController");
 
 export class registerController {
     location: ng.ILocationService;

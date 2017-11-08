@@ -1,9 +1,9 @@
 ﻿"use strict";
 import ng = angular;
-import serviceModule = require("serviceHandler");
-import loginCtrlModule = require("loginController");
-import routerModule = require("configRouter");
-import regCtrlModule = require("registerController");
+import serviceModule = require("./serviceHandler");
+import loginCtrlModule = require("./loginController");
+import routerModule = require("./configRouter");
+import regCtrlModule = require("./registerController");
 
 export class mainControllers {
     constructor() {
